@@ -19,7 +19,7 @@ public class WatchFaceService extends CanvasWatchFaceService {
         public void onCreate(SurfaceHolder holder) {
             super.onCreate(holder);
 
-            //mMovie = Movie.decodeStream(getResources().openRawResource(R));
+            mMovie = Movie.decodeStream(getResources().openRawResource(R.raw.rickroll));
         }
     }
 }
