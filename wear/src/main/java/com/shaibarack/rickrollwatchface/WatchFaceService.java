@@ -3,6 +3,7 @@ package com.shaibarack.rickrollwatchface;
 import android.graphics.Canvas;
 import android.graphics.Movie;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.support.wearable.watchface.CanvasWatchFaceService;
 import android.support.wearable.watchface.WatchFaceStyle;
 import android.view.SurfaceHolder;
@@ -17,6 +18,7 @@ public class WatchFaceService extends CanvasWatchFaceService {
     private class Engine extends CanvasWatchFaceService.Engine {
 
         private Movie mMovie;
+        private Drawable mAmbient;
 
         @Override
         public void onCreate(SurfaceHolder holder) {
@@ -25,14 +27,18 @@ public class WatchFaceService extends CanvasWatchFaceService {
             setWatchFaceStyle(new WatchFaceStyle.Builder(WatchFaceService.this)
                     .setShowSystemUiTime(true)
                     .build());
+            mAmbient = getResources().getDrawable(R.drawable.ambient);
         }
 
         @Override
         public void onDraw(Canvas canvas, Rect bounds) {
-            // TODO check if ambient
-            mMovie.setTime((int) (System.currentTimeMillis() % mMovie.duration()));
-            mMovie.draw(canvas, 0, 0);
-            invalidate();
+            if (isInAmbientMode()) {
+                mAmbient.draw(canvas);
+            } else {
+                mMovie.setTime((int) (System.currentTimeMillis() % mMovie.duration()));
+                mMovie.draw(canvas, 0, 0);
+                invalidate();
+            }
         }
     }
 }
