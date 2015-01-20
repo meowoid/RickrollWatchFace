@@ -2,8 +2,10 @@ package com.shaibarack.rickrollwatchface;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Movie;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.support.wearable.watchface.CanvasWatchFaceService;
 import android.support.wearable.watchface.WatchFaceStyle;
@@ -19,22 +21,13 @@ public class WatchFaceService extends CanvasWatchFaceService {
     private class Engine extends CanvasWatchFaceService.Engine {
 
         private Movie mMovie;
-        private float mMovieHeight;
-        private float mMovieWidth;
-        private int mMoviePivotX;
-        private int mMoviePivotY;
-        private float mScaleX;
-        private float mScaleY;
         private Drawable mAmbient;
+        private Matrix mMatrix;
 
         @Override
         public void onCreate(SurfaceHolder holder) {
             super.onCreate(holder);
             mMovie = Movie.decodeStream(getResources().openRawResource(R.raw.rickroll));
-            mMovieHeight = mMovie.height();
-            mMovieWidth = mMovie.width();
-            mMoviePivotX = (int) mMovieHeight / 2;
-            mMoviePivotY = (int) mMovieWidth / 2;
             mAmbient = getResources().getDrawable(R.drawable.ambient);
             mAmbient.setAlpha(127);
             setWatchFaceStyle(new WatchFaceStyle.Builder(WatchFaceService.this)
@@ -62,9 +55,10 @@ public class WatchFaceService extends CanvasWatchFaceService {
 
         @Override
         public void onSurfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-            mScaleX = ((float) width) / mMovieWidth;
-            mScaleY = ((float) height) / mMovieHeight;
-            mScaleX = mScaleY = Math.max(mScaleX, mScaleY);
+            mMatrix = new Matrix();
+            RectF surfaceRect = new RectF(0, 0, width, height);
+            RectF movieRect = new RectF(0, 0, mMovie.width(), mMovie.height());
+            mMatrix.setRectToRect(movieRect, surfaceRect, Matrix.ScaleToFit.CENTER);
         }
 
         @Override
@@ -77,11 +71,9 @@ public class WatchFaceService extends CanvasWatchFaceService {
                 mAmbient.setBounds(bounds);
                 mAmbient.draw(canvas);
             } else {
-                canvas.save(Canvas.MATRIX_SAVE_FLAG);
-                canvas.scale(mScaleX, mScaleY, mMoviePivotX, mMoviePivotY);
+                canvas.setMatrix(mMatrix);
                 mMovie.setTime((int) (System.currentTimeMillis() % mMovie.duration()));
                 mMovie.draw(canvas, 0, 0);
-                canvas.restore();
                 invalidate();
             }
         }
