@@ -28,6 +28,8 @@ public class WatchFaceService extends CanvasWatchFaceService {
                     .setShowSystemUiTime(true)
                     .setCardPeekMode(WatchFaceStyle.PEEK_MODE_SHORT)
                     .setBackgroundVisibility(WatchFaceStyle.BACKGROUND_VISIBILITY_INTERRUPTIVE)
+                    .setViewProtection(WatchFaceStyle.PROTECT_STATUS_BAR
+                            | WatchFaceStyle.PROTECT_HOTWORD_INDICATOR)
                     .build());
             mAmbient = getResources().getDrawable(R.drawable.ambient);
         }
