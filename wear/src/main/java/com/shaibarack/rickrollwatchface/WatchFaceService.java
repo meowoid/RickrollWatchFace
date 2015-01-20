@@ -26,6 +26,8 @@ public class WatchFaceService extends CanvasWatchFaceService {
             mMovie = Movie.decodeStream(getResources().openRawResource(R.raw.rickroll));
             setWatchFaceStyle(new WatchFaceStyle.Builder(WatchFaceService.this)
                     .setShowSystemUiTime(true)
+                    .setCardPeekMode(WatchFaceStyle.PEEK_MODE_SHORT)
+                    .setBackgroundVisibility(WatchFaceStyle.BACKGROUND_VISIBILITY_INTERRUPTIVE)
                     .build());
             mAmbient = getResources().getDrawable(R.drawable.ambient);
         }
@@ -33,6 +35,7 @@ public class WatchFaceService extends CanvasWatchFaceService {
         @Override
         public void onDraw(Canvas canvas, Rect bounds) {
             if (isInAmbientMode()) {
+                mAmbient.setBounds(bounds);
                 mAmbient.draw(canvas);
             } else {
                 mMovie.setTime((int) (System.currentTimeMillis() % mMovie.duration()));
