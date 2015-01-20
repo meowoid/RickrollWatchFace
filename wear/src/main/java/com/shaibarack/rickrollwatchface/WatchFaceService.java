@@ -23,6 +23,8 @@ public class WatchFaceService extends CanvasWatchFaceService {
         private float mMovieWidth;
         private int mMoviePivotX;
         private int mMoviePivotY;
+        private float mScaleX;
+        private float mScaleY;
         private Drawable mAmbient;
 
         @Override
@@ -59,6 +61,13 @@ public class WatchFaceService extends CanvasWatchFaceService {
         }
 
         @Override
+        public void onSurfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+            mScaleX = ((float) width) / mMovieWidth;
+            mScaleY = ((float) height) / mMovieHeight;
+            mScaleX = mScaleY = Math.max(mScaleX, mScaleY);
+        }
+
+        @Override
         public void onDraw(Canvas canvas, Rect bounds) {
             if (!isVisible()) {
                 return;
@@ -68,15 +77,7 @@ public class WatchFaceService extends CanvasWatchFaceService {
                 mAmbient.setBounds(bounds);
                 mAmbient.draw(canvas);
             } else {
-                float scaleX = mMovieWidth / bounds.width();
-                float scaleY = mMovieHeight / bounds.height();
-                if (scaleX == scaleY) {
-                    canvas.scale(scaleX, scaleY, mMoviePivotX, mMoviePivotY);
-                } else if (scaleX < scaleY) {
-                    canvas.scale(scaleY, scaleY, mMoviePivotX, mMoviePivotY);
-                } else {
-                    canvas.scale(scaleX, scaleX, mMoviePivotX, mMoviePivotY);
-                }
+                canvas.scale(mScaleX, mScaleY, mMoviePivotX, mMoviePivotY);
                 mMovie.setTime((int) (System.currentTimeMillis() % mMovie.duration()));
                 mMovie.draw(canvas, 0, 0);
                 invalidate();
