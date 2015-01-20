@@ -52,6 +52,13 @@ public class WatchFaceService extends CanvasWatchFaceService {
         }
 
         @Override
+        public void onAmbientModeChanged(boolean inAmbientMode) {
+            if (!inAmbientMode) {
+                invalidate();
+            }
+        }
+
+        @Override
         public void onDraw(Canvas canvas, Rect bounds) {
             if (!isVisible()) {
                 return;

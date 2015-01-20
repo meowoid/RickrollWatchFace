@@ -47,8 +47,8 @@
       <file leaf-file-name="WatchFaceService.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/wear/src/main/java/com/shaibarack/rickrollwatchface/WatchFaceService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7770492" vertical-offset="580" max-vertical-offset="1292">
-              <caret line="71" column="17" selection-start-line="71" selection-start-column="17" selection-end-line="71" selection-end-column="17" />
+            <state vertical-scroll-proportion="0.8081967" vertical-offset="306" max-vertical-offset="1411">
+              <caret line="56" column="29" selection-start-line="56" selection-start-column="29" selection-end-line="56" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -1932,8 +1932,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/wear/src/main/java/com/shaibarack/rickrollwatchface/WatchFaceService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7770492" vertical-offset="580" max-vertical-offset="1292">
-          <caret line="71" column="17" selection-start-line="71" selection-start-column="17" selection-end-line="71" selection-end-column="17" />
+        <state vertical-scroll-proportion="0.8081967" vertical-offset="306" max-vertical-offset="1411">
+          <caret line="56" column="29" selection-start-line="56" selection-start-column="29" selection-end-line="56" selection-end-column="29" />
           <folding />
         </state>
       </provider>
