@@ -77,9 +77,11 @@ public class WatchFaceService extends CanvasWatchFaceService {
                 mAmbient.setBounds(bounds);
                 mAmbient.draw(canvas);
             } else {
+                canvas.save(Canvas.MATRIX_SAVE_FLAG);
                 canvas.scale(mScaleX, mScaleY, mMoviePivotX, mMoviePivotY);
                 mMovie.setTime((int) (System.currentTimeMillis() % mMovie.duration()));
                 mMovie.draw(canvas, 0, 0);
+                canvas.restore();
                 invalidate();
             }
         }
