@@ -32,10 +32,19 @@ public class WatchFaceService extends CanvasWatchFaceService {
                             | WatchFaceStyle.PROTECT_HOTWORD_INDICATOR)
                     .build());
             mAmbient = getResources().getDrawable(R.drawable.ambient);
+            mAmbient.setAlpha(127);
+        }
+
+        @Override
+        public void onTimeTick() {
+            invalidate();
         }
 
         @Override
         public void onDraw(Canvas canvas, Rect bounds) {
+            if (!isVisible()) {
+                return;
+            }
             if (isInAmbientMode()) {
                 mAmbient.setBounds(bounds);
                 mAmbient.draw(canvas);
