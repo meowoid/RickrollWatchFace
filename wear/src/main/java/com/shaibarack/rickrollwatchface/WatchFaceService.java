@@ -63,14 +63,11 @@ public class WatchFaceService extends CanvasWatchFaceService {
 
         @Override
         public void onDraw(Canvas canvas, Rect bounds) {
-            if (!isVisible()) {
-                return;
-            }
             if (isInAmbientMode()) {
                 canvas.drawColor(Color.BLACK);
                 mAmbient.setBounds(bounds);
                 mAmbient.draw(canvas);
-            } else {
+            } else if (isVisible()) {
                 canvas.setMatrix(mMatrix);
                 mMovie.setTime((int) (System.currentTimeMillis() % mMovie.duration()));
                 mMovie.draw(canvas, 0, 0);
